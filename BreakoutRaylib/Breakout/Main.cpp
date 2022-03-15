@@ -54,13 +54,14 @@ Rectangle paddle { X_POS_PADDLE, Y_POS_PADDLE, WIDTH_PADDLE, HEIGHT_PADDLE};
 // Single brick
 struct Brick {
     Rectangle rect;
+    bool isVisible;
 };
 
 const int WIDTH_BRICK = 100;
 const int HEIGHT_BRICK = 32;
 
 Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
-Brick brick{ rect };
+Brick brick{ rect, true };
 
 // Creating multiple bricks
 const int ROW_BRICKS = 10;
@@ -117,7 +118,7 @@ void load()
             Rectangle rect{ xPos, yPos, WIDTH_BRICK - SPACING_BRICKS, HEIGHT_BRICK - SPACING_BRICKS };
 
             // Create the brick
-            Brick brick{ rect };
+            Brick brick{ rect, true };
             // ... and add it to the bricks vector
             bricks.push_back(brick);
         }
@@ -203,13 +204,18 @@ void update()
             ball.y = Y_POS_PADDLE - ball.height;
         }
         // Testing if the ball collides with the bricks
-        for each (brick in bricks)
+        for (Brick& brick : bricks)
         {
-            if (AABBAlgorithm(ball, brick.rect)) {
-                // Reverse ball speed along the y axis
-                ySpeedBall *= -1;
-                // Reset ball position at the bottom of the brick
-                ball.y = brick.rect.y + brick.rect.height;
+            if (brick.isVisible)
+            {
+                if (AABBAlgorithm(ball, brick.rect)) {
+                    // Reverse ball speed along the y axis
+                    ySpeedBall *= -1;
+                    // Reset ball position at the bottom of the brick
+                    ball.y = brick.rect.y + brick.rect.height;
+                    // Set the brick visibility to false
+                    brick.isVisible = false;
+                }
             }
         }
         //^ Collisions ===================================================
@@ -233,9 +239,11 @@ void draw()
     // Draw paddle
     DrawRectangleRec(paddle, WHITE);
     // Draw all bricks
-    for each (brick in bricks)
+    for (Brick brick : bricks)
     {
-        DrawRectangleRec(brick.rect, GREEN);
+        if (brick.isVisible) {
+            DrawRectangleRec(brick.rect, GREEN);
+        }
     }
 
     drawUi();
