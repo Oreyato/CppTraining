@@ -76,6 +76,8 @@ const int COLUMN_BRICKS = 6;
 
 const int SPACING_BRICKS = 2;
 
+int nbBricks = 0;
+
 vector<Brick> bricks;
 
 //^ Game specific init ===========================================
@@ -128,6 +130,9 @@ void load()
             Brick brick{ rect, true };
             // ... and add it to the bricks vector
             bricks.push_back(brick);
+
+            // Increase bricks number
+            nbBricks += 1;
         }
     }
 
@@ -143,7 +148,20 @@ void unload()
 // Game update
 void update()
 {
-    if (state == 0) {
+    if (nbBricks <= 0) {
+        // If the player win
+        if (IsKeyDown(KEY_R)) {
+            resetGame();
+        }
+    }
+    else if (state == 2) {
+        // If the player lose
+        if (IsKeyDown(KEY_R)) {
+            resetGame();
+        }
+    }
+    else {
+        // Default game
         //v Ball =========================================================
         ball.x += xSpeedBall;
         ball.y += ySpeedBall;
@@ -237,18 +255,6 @@ void update()
             }
         }
         //^ Collisions ===================================================
-    }
-    else if (state == 1) {
-        // If the player win
-        if (IsKeyDown(KEY_R)) {
-            resetGame();
-        }
-    }
-    else if (state == 2) {
-        // If the player lose
-        if (IsKeyDown(KEY_R)) {
-            resetGame();
-        }
     }
 }
 
