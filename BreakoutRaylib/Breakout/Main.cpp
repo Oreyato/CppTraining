@@ -26,6 +26,12 @@ int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 bool AABBAlgorithm(Rectangle a, Rectangle b);
+
+// Rules ==============================
+const int MAX_LIFE = 3;
+int life = MAX_LIFE;
+
+// ====================================
 // Ball ===============================
 const int SIZE_BALL = 32;
 const int SPEED_BALL = 5;
@@ -149,14 +155,18 @@ void update()
             // Reset ball position
             ball.y = 0;
         }
-// TEMP // ... from the bottom 
-        else if (ball.y >= HEIGHT_SCREEN - ball.height) {
+        // ... from the bottom (disappearing completely)
+        else if (ball.y >= HEIGHT_SCREEN) {
             // Reverse speed along the y axis
             ySpeedBall *= -1;
-            // Reset ball position
-            ball.y = HEIGHT_SCREEN - ball.height;
+            // Reset ball x position a bit above the paddle
+            ball.y = paddle.y - 50;
+            // Reset ball y position at the center of the screen
+            ball.x = WIDTH_SCREEN / 2 - ball.width / 2;
+
+            // Remove one life
+            life -= 1;
         }
-// TEMP
         // ... from the left or the right
         else if (ball.x <= 0) {
             // Reverse speed along the x axix
@@ -206,8 +216,10 @@ void update()
         // Testing if the ball collides with the bricks
         for (Brick& brick : bricks)
         {
-            if (brick.isVisible)
-            {
+            if (!brick.isVisible) {
+                continue;
+            }
+            else {
                 if (AABBAlgorithm(ball, brick.rect)) {
                     // Reverse ball speed along the y axis
                     ySpeedBall *= -1;
@@ -239,7 +251,7 @@ void draw()
     // Draw paddle
     DrawRectangleRec(paddle, WHITE);
     // Draw all bricks
-    for (Brick brick : bricks)
+    for (Brick& brick : bricks)
     {
         if (brick.isVisible) {
             DrawRectangleRec(brick.rect, GREEN);
@@ -253,14 +265,13 @@ void draw()
 // Draw UI
 void drawUi()
 {
-
+    DrawText("Life:", 10, 10, 20, WHITE);
+    DrawText(to_string(life).c_str(), 60, 10, 20, WHITE);
 }
 
 bool AABBAlgorithm(Rectangle a, Rectangle b) {
-    // Initiate boolean
-    bool isColliding = false;
     // Initiate ball variables
-    int xMinA= a.x;
+    int xMinA = a.x;
     int yMinA = a.y;
     int xMaxA = a.x + a.width;
     int yMaxA = a.y + a.height;
@@ -270,9 +281,5 @@ bool AABBAlgorithm(Rectangle a, Rectangle b) {
     int xMaxB = b.x + b.width;
     int yMaxB = b.y + b.height;
 
-    if (!(xMinB > xMaxA || yMinB > yMaxA || xMaxB < xMinA || yMaxB < yMinA)) {
-        isColliding = true;
-    }
-
-    return isColliding;
+    return (!(xMinB > xMaxA || yMinB > yMaxA || xMaxB < xMinA || yMaxB < yMinA));
 }
