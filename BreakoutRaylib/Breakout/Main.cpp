@@ -26,6 +26,7 @@ int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 bool AABBAlgorithm(Rectangle a, Rectangle b);
+void resetGame();
 
 // Rules ==============================
 const int MAX_LIFE = 3;
@@ -35,12 +36,12 @@ int life = MAX_LIFE;
 // Ball ===============================
 const int SIZE_BALL = 32;
 const int SPEED_BALL = 5;
-int xSpeedBall = SPEED_BALL;
-int ySpeedBall = SPEED_BALL;
+int xSpeedBall = -SPEED_BALL;
+int ySpeedBall = -SPEED_BALL;
 
 // Initial position
-const int X_POS_BALL = 250;
-const int Y_POS_BALL = 250;
+const int X_POS_BALL = WIDTH_SCREEN / 2 - SIZE_BALL / 2;
+const int Y_POS_BALL = HEIGHT_SCREEN - 85;
 
 Rectangle ball{ X_POS_BALL, Y_POS_BALL, SIZE_BALL, SIZE_BALL };
 
@@ -225,24 +226,29 @@ void update()
             if (!brick.isVisible) {
                 continue;
             }
-            else {
-                if (AABBAlgorithm(ball, brick.rect)) {
-                    // Reverse ball speed along the y axis
-                    ySpeedBall *= -1;
-                    // Reset ball position at the bottom of the brick
-                    ball.y = brick.rect.y + brick.rect.height;
-                    // Set the brick visibility to false
-                    brick.isVisible = false;
-                }
+
+            if (AABBAlgorithm(ball, brick.rect)) {
+                // Reverse ball speed along the y axis
+                ySpeedBall *= -1;
+                // Reset ball position at the bottom of the brick
+                ball.y = brick.rect.y + brick.rect.height;
+                // Set the brick visibility to false
+                brick.isVisible = false;
             }
         }
         //^ Collisions ===================================================
     }
     else if (state == 1) {
         // If the player win
+        if (IsKeyDown(KEY_R)) {
+            resetGame();
+        }
     }
     else if (state == 2) {
         // If the player lose
+        if (IsKeyDown(KEY_R)) {
+            resetGame();
+        }
     }
 }
 
@@ -269,10 +275,16 @@ void draw()
         drawUi();
     }
     else if (state == 1) {
-        DrawText("You won", 300, 150, 50, LIGHTGRAY);
+        DrawText("You won", 300, 200, 50, LIGHTGRAY);
+
+        DrawText("Press R to try again", 350, 300, 20, LIGHTGRAY);
+        DrawText("Press ESC to quit", 350, 350, 20, LIGHTGRAY);
     }
     else if (state == 2) {
-        DrawText("You lose...", 300, 150, 50, LIGHTGRAY);
+        DrawText("You lose...", 300, 200, 50, LIGHTGRAY);
+
+        DrawText("Press R to try again", 350, 300, 20, LIGHTGRAY);
+        DrawText("Press ESC to quit", 350, 350, 20, LIGHTGRAY);
     }
 
     EndDrawing();
@@ -298,4 +310,28 @@ bool AABBAlgorithm(Rectangle a, Rectangle b) {
     int yMaxB = b.y + b.height;
 
     return (!(xMinB > xMaxA || yMinB > yMaxA || xMaxB < xMinA || yMaxB < yMinA));
+}
+
+void resetGame() {
+    // Ball
+    ball.x = X_POS_BALL;
+    ball.y = Y_POS_BALL;
+    xSpeedBall = SPEED_BALL;
+    ySpeedBall = SPEED_BALL;
+
+    // Paddle
+    paddle.x = X_POS_PADDLE;
+
+    // Bricks
+    for (Brick& brick : bricks) {
+        if (brick.isVisible) {
+            continue;
+        }
+        
+        brick.isVisible = true;
+    }
+
+    // Game
+    life = MAX_LIFE;
+    state = 0;
 }
