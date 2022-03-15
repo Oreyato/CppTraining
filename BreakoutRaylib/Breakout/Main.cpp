@@ -18,13 +18,28 @@ void draw();
 void drawUi();
 
 // Screen size
-int const SCREEN_WIDTH = 960;
-int const SCREEN_HEIGHT = 540;
+int const WIDTH_SCREEN = 960;
+int const HEIGHT_SCREEN = 540;
 
 // State
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
+// Ball
+const int SIZE_BALL = 32;
+const int SPEED_BALL = 5;
+
+int xPosBall = 250;
+int yPosBall = 250;
+
+// Paddle
+const int WIDTH_PADDLE = 300;
+const int HEIGHT_PADDLE = 32;
+const int SPEED_PADDLE = 5;
+const int YPOS_PADDLE = HEIGHT_SCREEN - (HEIGHT_PADDLE + 10);
+
+int xPosPaddle = WIDTH_SCREEN / 2 - WIDTH_PADDLE / 2;
+Rectangle paddle {xPosPaddle, YPOS_PADDLE, WIDTH_PADDLE, HEIGHT_PADDLE};
 
 //^ Game specific init ===========================================
 
@@ -48,7 +63,7 @@ void load()
 {
     // Create the window 
     string windowName = "GameWindow";
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, windowName.c_str());
+    InitWindow(WIDTH_SCREEN, HEIGHT_SCREEN, windowName.c_str());
     SetWindowPosition(0, 10);
     SetTargetFPS(60);
 
@@ -84,6 +99,12 @@ void draw()
 {
     BeginDrawing();
     ClearBackground(BLACK);
+
+    // Draw ball
+    DrawRectangle(xPosBall, yPosBall, SIZE_BALL, SIZE_BALL, WHITE);
+
+    // Draw paddle
+    DrawRectangleRec(paddle, WHITE);
 
     drawUi();
     EndDrawing();
