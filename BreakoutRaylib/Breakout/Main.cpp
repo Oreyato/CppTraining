@@ -25,6 +25,7 @@ int const HEIGHT_SCREEN = 540;
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
+bool AABBAlgorithm(Rectangle a, Rectangle b);
 // Ball ===============================
 const int SIZE_BALL = 32;
 const int SPEED_BALL = 5;
@@ -113,6 +114,15 @@ void update()
             // Reverse speed along the x axix
             xSpeedBall *= -1;
         }
+
+        // Testing if the ball collide with the paddle ----------------------------------- G: est-ce qu'il est plus judicieux de mettre ce code après le code du paddle ?
+        if (AABBAlgorithm(ball, paddle)) {
+            // Reverse ball speed along the y axis
+            ySpeedBall *= -1;
+            // Reset ball position
+            ball.y = Y_POS_PADDLE - ball.height;
+        }
+
         //^ Ball =========================================================
         //v Paddle =======================================================
         // Moving the paddle according to player input
@@ -166,4 +176,25 @@ void draw()
 void drawUi()
 {
 
+}
+
+bool AABBAlgorithm(Rectangle a, Rectangle b) {
+    // Initiate boolean
+    bool isColliding = false;
+    // Initiate ball variables
+    int xMinA= a.x;
+    int yMinA = a.y;
+    int xMaxA = a.x + a.width;
+    int yMaxA = a.y + a.height;
+    // Initiate paddle variables
+    int xMinB = b.x;
+    int yMinB = b.y;
+    int xMaxB = b.x + b.width;
+    int yMaxB = b.y + b.height;
+
+    if (!(xMinB > xMaxA || yMinB > yMaxA || xMaxB < xMinA || yMaxB < yMinA)) {
+        isColliding = true;
+    }
+
+    return isColliding;
 }
