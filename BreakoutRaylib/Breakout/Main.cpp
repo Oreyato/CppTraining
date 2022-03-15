@@ -166,6 +166,12 @@ void update()
 
             // Remove one life
             life -= 1;
+
+            // Test if there are no remaining life
+            if (life <= 0) {
+                // Change the game state to 2 (game over)
+                state = 2;
+            }
         }
         // ... from the left or the right
         else if (ball.x <= 0) {
@@ -235,7 +241,7 @@ void update()
     else if (state == 1) {
         // If the player win
     }
-    else {
+    else if (state == 2) {
         // If the player lose
     }
 }
@@ -246,19 +252,29 @@ void draw()
     BeginDrawing();
     ClearBackground(BLACK);
 
-    // Draw ball
-    DrawRectangleRec(ball, WHITE);
-    // Draw paddle
-    DrawRectangleRec(paddle, WHITE);
-    // Draw all bricks
-    for (Brick& brick : bricks)
+    if (state == 0)
     {
-        if (brick.isVisible) {
-            DrawRectangleRec(brick.rect, GREEN);
+        // Draw ball
+        DrawRectangleRec(ball, WHITE);
+        // Draw paddle
+        DrawRectangleRec(paddle, WHITE);
+        // Draw all bricks
+        for (Brick& brick : bricks)
+        {
+            if (brick.isVisible) {
+                DrawRectangleRec(brick.rect, GREEN);
+            }
         }
+
+        drawUi();
+    }
+    else if (state == 1) {
+        DrawText("You won", 300, 150, 50, LIGHTGRAY);
+    }
+    else if (state == 2) {
+        DrawText("You lose...", 300, 150, 50, LIGHTGRAY);
     }
 
-    drawUi();
     EndDrawing();
 }
 
