@@ -25,21 +25,28 @@ int const HEIGHT_SCREEN = 540;
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
-// Ball
+// Ball ===============================
 const int SIZE_BALL = 32;
 const int SPEED_BALL = 5;
+int xSpeedBall = SPEED_BALL;
+int ySpeedBall = SPEED_BALL;
 
-int xPosBall = 250;
-int yPosBall = 250;
+// Initial position
+const int X_POS_BALL = 250;
+const int Y_POS_BALL = 250;
 
-// Paddle
+Rectangle ball{ X_POS_BALL, Y_POS_BALL, SIZE_BALL, SIZE_BALL };
+
+// Paddle =============================
 const int WIDTH_PADDLE = 300;
 const int HEIGHT_PADDLE = 32;
 const int SPEED_PADDLE = 5;
-const int YPOS_PADDLE = HEIGHT_SCREEN - (HEIGHT_PADDLE + 10);
 
-int xPosPaddle = WIDTH_SCREEN / 2 - WIDTH_PADDLE / 2;
-Rectangle paddle {xPosPaddle, YPOS_PADDLE, WIDTH_PADDLE, HEIGHT_PADDLE};
+// Initial position
+const int Y_POS_PADDLE = HEIGHT_SCREEN - (HEIGHT_PADDLE + 10);
+const int X_POS_PADDLE = WIDTH_SCREEN / 2 - WIDTH_PADDLE / 2;
+
+Rectangle paddle { X_POS_PADDLE, Y_POS_PADDLE, WIDTH_PADDLE, HEIGHT_PADDLE};
 
 //^ Game specific init ===========================================
 
@@ -84,7 +91,52 @@ void unload()
 void update()
 {
     if (state == 0) {
+        //v Ball =========================================================
+        ball.x += xSpeedBall;
+        ball.y += ySpeedBall;
 
+        // Testing if the ball goes out of screen
+        // ... from the top
+        if (ball.y <= 0) {
+            // Reverse speed along the y axis
+            ySpeedBall *= -1;
+
+        }
+// TEMP // ... from the bottom 
+        else if (ball.y >= HEIGHT_SCREEN - ball.height) {
+            // Reverse speed along the y axis
+            ySpeedBall *= -1;
+        }
+// TEMP
+        // ... from the left or the right
+        else if (ball.x <= 0 || ball.x >= WIDTH_SCREEN - ball.width) {
+            // Reverse speed along the x axix
+            xSpeedBall *= -1;
+        }
+        //^ Ball =========================================================
+        //v Paddle =======================================================
+        // Moving the paddle according to player input
+        // Moving left 
+        if (IsKeyDown(KEY_A)) {
+            paddle.x -= SPEED_PADDLE;
+        }
+        // Moving right
+        else if (IsKeyDown(KEY_D)) {
+            paddle.x += SPEED_PADDLE;
+        }
+
+        // Testing if the paddle goes out of screen
+        // ... from the left
+        if (paddle.x <= 0) {
+            // Reset paddle x position
+            paddle.x = 0;
+        }
+        // ... from the right
+        else if (paddle.x >= WIDTH_SCREEN - paddle.width) {
+            // Reset paddle x position
+            paddle.x = WIDTH_SCREEN - paddle.width;
+        }
+        //^ Paddle =======================================================
     }
     else if (state == 1) {
         // If the player win
@@ -101,7 +153,7 @@ void draw()
     ClearBackground(BLACK);
 
     // Draw ball
-    DrawRectangle(xPosBall, yPosBall, SIZE_BALL, SIZE_BALL, WHITE);
+    DrawRectangleRec(ball, WHITE);
 
     // Draw paddle
     DrawRectangleRec(paddle, WHITE);
