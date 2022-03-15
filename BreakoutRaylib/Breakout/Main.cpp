@@ -18,7 +18,7 @@ void draw();
 void drawUi();
 
 // Screen size
-int const WIDTH_SCREEN = 960;
+int const WIDTH_SCREEN = 1000;
 int const HEIGHT_SCREEN = 540;
 
 // State
@@ -63,8 +63,10 @@ Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
 Brick brick{ rect };
 
 // Creating multiple bricks
-const int ROW_BRICKS = 11;
+const int ROW_BRICKS = 10;
 const int COLUMN_BRICKS = 6;
+
+const int SPACING_BRICKS = 2;
 
 vector<Brick> bricks;
 
@@ -103,16 +105,16 @@ void load()
     //v Game specifics ===============================================
     // Initiate the grid of bricks~
     // Filling it with the bricks
-    for (int i = 0; i < ROW_BRICKS - 1; i++)
+    for (int i = 0; i < ROW_BRICKS; i++)
     {
-        for (int j = 0; j < COLUMN_BRICKS - 1; j++)
+        for (int j = 0; j < COLUMN_BRICKS; j++)
         {
             // Brick position
             int xPos = WIDTH_BRICK * i;
             int yPos = HEIGHT_BRICK * j;
 
             // Rectangle to fit in the Brick struct
-            Rectangle rect{ xPos, yPos, WIDTH_BRICK, HEIGHT_BRICK };
+            Rectangle rect{ xPos, yPos, WIDTH_BRICK - SPACING_BRICKS, HEIGHT_BRICK - SPACING_BRICKS };
 
             // Create the brick
             Brick brick{ rect };
@@ -168,15 +170,6 @@ void update()
             // Reset ball position 
             ball.x = WIDTH_SCREEN - ball.width;
         }
-
-        // Testing if the ball collide with the paddle ----------------------------------- G: est-ce qu'il est plus judicieux de mettre ce code après le code du paddle ?
-        if (AABBAlgorithm(ball, paddle)) {
-            // Reverse ball speed along the y axis
-            ySpeedBall *= -1;
-            // Reset ball position at the top of the paddle
-            ball.y = Y_POS_PADDLE - ball.height;
-        }
-
         //^ Ball =========================================================
         //v Paddle =======================================================
         // Moving the paddle according to player input
@@ -201,6 +194,25 @@ void update()
             paddle.x = WIDTH_SCREEN - paddle.width;
         }
         //^ Paddle =======================================================
+        //v Collisions ===================================================
+        // Testing if the ball collides with the paddle
+        if (AABBAlgorithm(ball, paddle)) {
+            // Reverse ball speed along the y axis
+            ySpeedBall *= -1;
+            // Reset ball position at the top of the paddle
+            ball.y = Y_POS_PADDLE - ball.height;
+        }
+        // Testing if the ball collides with the bricks
+        for each (brick in bricks)
+        {
+            if (AABBAlgorithm(ball, brick.rect)) {
+                // Reverse ball speed along the y axis
+                ySpeedBall *= -1;
+                // Reset ball position at the bottom of the brick
+                ball.y = brick.rect.y + brick.rect.height;
+            }
+        }
+        //^ Collisions ===================================================
     }
     else if (state == 1) {
         // If the player win
