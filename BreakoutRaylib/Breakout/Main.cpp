@@ -38,6 +38,7 @@ const int Y_POS_BALL = 250;
 
 Rectangle ball{ X_POS_BALL, Y_POS_BALL, SIZE_BALL, SIZE_BALL };
 
+// ====================================
 // Paddle =============================
 const int WIDTH_PADDLE = 128;
 const int HEIGHT_PADDLE = 32;
@@ -48,6 +49,24 @@ const int Y_POS_PADDLE = HEIGHT_SCREEN - (HEIGHT_PADDLE + 10);
 const int X_POS_PADDLE = WIDTH_SCREEN / 2 - WIDTH_PADDLE / 2;
 
 Rectangle paddle { X_POS_PADDLE, Y_POS_PADDLE, WIDTH_PADDLE, HEIGHT_PADDLE};
+// ====================================
+// Bricks =============================
+// Single brick
+struct Brick {
+    Rectangle rect;
+};
+
+const int WIDTH_BRICK = 100;
+const int HEIGHT_BRICK = 32;
+
+Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
+Brick brick{ rect };
+
+// Creating multiple bricks
+const int ROW_BRICKS = 11;
+const int COLUMN_BRICKS = 6;
+
+vector<Brick> bricks;
 
 //^ Game specific init ===========================================
 
@@ -80,6 +99,29 @@ void load()
     InitAudioDevice();
 
     //^ Sounds init ==================================================
+
+    //v Game specifics ===============================================
+    // Initiate the grid of bricks~
+    // Filling it with the bricks
+    for (int i = 0; i < ROW_BRICKS - 1; i++)
+    {
+        for (int j = 0; j < COLUMN_BRICKS - 1; j++)
+        {
+            // Brick position
+            int xPos = WIDTH_BRICK * i;
+            int yPos = HEIGHT_BRICK * j;
+
+            // Rectangle to fit in the Brick struct
+            Rectangle rect{ xPos, yPos, WIDTH_BRICK, HEIGHT_BRICK };
+
+            // Create the brick
+            Brick brick{ rect };
+            // ... and add it to the bricks vector
+            bricks.push_back(brick);
+        }
+    }
+
+    //^ Game specifics ===============================================
 }
 
 // Unload game
@@ -176,9 +218,13 @@ void draw()
 
     // Draw ball
     DrawRectangleRec(ball, WHITE);
-
     // Draw paddle
     DrawRectangleRec(paddle, WHITE);
+    // Draw all bricks
+    for each (brick in bricks)
+    {
+        DrawRectangleRec(brick.rect, GREEN);
+    }
 
     drawUi();
     EndDrawing();
