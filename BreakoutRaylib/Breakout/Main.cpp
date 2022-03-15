@@ -39,9 +39,9 @@ const int Y_POS_BALL = 250;
 Rectangle ball{ X_POS_BALL, Y_POS_BALL, SIZE_BALL, SIZE_BALL };
 
 // Paddle =============================
-const int WIDTH_PADDLE = 300;
+const int WIDTH_PADDLE = 128;
 const int HEIGHT_PADDLE = 32;
-const int SPEED_PADDLE = 5;
+const int SPEED_PADDLE = 10;
 
 // Initial position
 const int Y_POS_PADDLE = HEIGHT_SCREEN - (HEIGHT_PADDLE + 10);
@@ -101,25 +101,37 @@ void update()
         if (ball.y <= 0) {
             // Reverse speed along the y axis
             ySpeedBall *= -1;
-
+            // Reset ball position
+            ball.y = 0;
         }
 // TEMP // ... from the bottom 
         else if (ball.y >= HEIGHT_SCREEN - ball.height) {
             // Reverse speed along the y axis
             ySpeedBall *= -1;
+            // Reset ball position
+            ball.y = HEIGHT_SCREEN - ball.height;
         }
 // TEMP
         // ... from the left or the right
-        else if (ball.x <= 0 || ball.x >= WIDTH_SCREEN - ball.width) {
+        else if (ball.x <= 0) {
             // Reverse speed along the x axix
             xSpeedBall *= -1;
+            // Reset ball position 
+            ball.x = 0;
+        }
+        // ... from the left or the right
+        else if (ball.x >= WIDTH_SCREEN - ball.width) {
+            // Reverse speed along the x axix
+            xSpeedBall *= -1;
+            // Reset ball position 
+            ball.x = WIDTH_SCREEN - ball.width;
         }
 
         // Testing if the ball collide with the paddle ----------------------------------- G: est-ce qu'il est plus judicieux de mettre ce code après le code du paddle ?
         if (AABBAlgorithm(ball, paddle)) {
             // Reverse ball speed along the y axis
             ySpeedBall *= -1;
-            // Reset ball position
+            // Reset ball position at the top of the paddle
             ball.y = Y_POS_PADDLE - ball.height;
         }
 
