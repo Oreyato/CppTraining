@@ -8,7 +8,6 @@
 using namespace std;
 
 //v ==============================================================
-
 //v Global init ==================================================
 // Methods
 void load();
@@ -26,6 +25,7 @@ int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 bool AABBAlgorithm(Rectangle a, Rectangle b);
+int brickCoordinatesToIndex(int rowBrick, int columnBrick);
 void resetGame();
 
 // Rules ==============================
@@ -35,7 +35,7 @@ int life = MAX_LIFE;
 // ====================================
 // Ball ===============================
 const int SIZE_BALL = 32;
-const int SPEED_BALL = 5;
+const int SPEED_BALL = 6;
 int xSpeedBall = -SPEED_BALL;
 int ySpeedBall = -SPEED_BALL;
 
@@ -71,8 +71,10 @@ Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
 Brick brick{ rect, true };
 
 // Creating multiple bricks
-const int ROW_BRICKS = 10;
-const int COLUMN_BRICKS = 6;
+const int COLUMN_BRICKS = 10;
+const int ROW_BRICKS = 6;
+
+const int MAX_BRICKS = ROW_BRICKS * COLUMN_BRICKS;
 
 const int SPACING_BRICKS = 2;
 
@@ -120,8 +122,8 @@ void load()
         for (int j = 0; j < COLUMN_BRICKS; j++)
         {
             // Brick position
-            int xPos = WIDTH_BRICK * i;
-            int yPos = HEIGHT_BRICK * j;
+            int xPos = WIDTH_BRICK * j;
+            int yPos = HEIGHT_BRICK * i;
 
             // Rectangle to fit in the Brick struct
             Rectangle rect{ xPos, yPos, WIDTH_BRICK - SPACING_BRICKS, HEIGHT_BRICK - SPACING_BRICKS };
@@ -239,6 +241,8 @@ void update()
             ball.y = Y_POS_PADDLE - ball.height;
         }
         // Testing if the ball collides with the bricks
+        #pragma region Previous collision algorithm
+        /*
         for (Brick& brick : bricks)
         {
             if (!brick.isVisible) {
@@ -262,6 +266,30 @@ void update()
                 }
             }
         }
+        */
+        #pragma endregion
+        #pragma region Lighter algorithm
+        // Translate ball coordinates into bricks coordinates
+        int columnBrick = (ball.x + SIZE_BALL / 2) / WIDTH_BRICK;
+        int rowBrick = ball.y / HEIGHT_BRICK;
+        // Search for the brick index
+        int index = brickCoordinatesToIndex(rowBrick, columnBrick);
+        // Is the ball where a brick should be (non visible)? 
+        if (index >= 0 && index < MAX_BRICKS && bricks[index].isVisible) {
+            // Reverse ball speed along the y axis
+            ySpeedBall *= -1;
+            // Set the brick visibility to false
+            bricks[index].isVisible = false;
+            // Reduce bricks number
+            --nbBricks;
+
+            // Test if there aren't any bricks left
+            if (nbBricks <= 0) {
+                // Change state to go to the win screen
+                state = 1;
+            }
+        }
+        #pragma endregion
         //^ Collisions ===================================================
     }
 }
@@ -324,6 +352,10 @@ bool AABBAlgorithm(Rectangle a, Rectangle b) {
     int yMaxB = b.y + b.height;
 
     return (!(xMinB > xMaxA || yMinB > yMaxA || xMaxB < xMinA || yMaxB < yMinA));
+}
+
+int brickCoordinatesToIndex(int rowBrick, int columnBrick) {
+    return rowBrick * COLUMN_BRICKS + columnBrick;
 }
 
 void resetGame() {
