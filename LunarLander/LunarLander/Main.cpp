@@ -68,7 +68,7 @@ void load()
     lander = LoadTexture("../assets/images/lander.png");
     landerFlame = LoadTexture("../assets/images/lander_flame.png");
 
-    //^ Textures =====================
+    //^ Textures ====================S=
     
     //^ Game specifics ===============================================
 }
