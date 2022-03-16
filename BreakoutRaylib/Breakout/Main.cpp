@@ -71,8 +71,8 @@ Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
 Brick brick{ rect, true };
 
 // Creating multiple bricks
-const int ROW_BRICKS = 10;
-const int COLUMN_BRICKS = 6;
+const int ROW_BRICKS = 2;
+const int COLUMN_BRICKS = 1;
 
 const int SPACING_BRICKS = 2;
 
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 void load()
 {
     // Create the window 
-    string windowName = "GameWindow";
+    string windowName = "BrickBreaker";
     InitWindow(WIDTH_SCREEN, HEIGHT_SCREEN, windowName.c_str());
     SetWindowPosition(0, 10);
     SetTargetFPS(60);
@@ -148,7 +148,7 @@ void unload()
 // Game update
 void update()
 {
-    if (nbBricks <= 0) {
+    if (state == 1) {
         // If the player win
         if (IsKeyDown(KEY_R)) {
             resetGame();
@@ -252,6 +252,11 @@ void update()
                 ball.y = brick.rect.y + brick.rect.height;
                 // Set the brick visibility to false
                 brick.isVisible = false;
+                --nbBricks;
+
+                if (nbBricks <= 0) {
+                    state = 1;
+                }
             }
         }
         //^ Collisions ===================================================
