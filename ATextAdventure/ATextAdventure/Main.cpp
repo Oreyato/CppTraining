@@ -4,6 +4,8 @@
 #include <math.h> 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -124,35 +126,18 @@ void drawUi()
 }
 
 string changeDescription() {
-    if (state == "start") {
-        return(
-            "Writing an adventure game\n"
-            "Yes. Again. But that's a great practice!\n\n"
-            "\t~and it will help my project\n\n"
-            "\t\t A- Honestly, I don't care at all\n"
-            "\t\t E- Yeah! A new project!\n"
-            );
-    }
-    else if (state == "deception") {
-        return (
-            "Oh...\n"
-            "You are joking right?\n\n"
-            "\t\t A- Obviously!\n"
-            "\t\t E- I am not"
-            );
-    }
-    else if (state == "expectations") {
-        return (
-            "Thanks!\n"
-            "What do you expect?\n\n"
-            "\t\t A- Schweppes!"
-            "\t\t E- An adventure text...?"
-            );
-    }
-    else {
-        return "...";
-    }
+    // Creating the path and stocking it in "path" string
+    string path = "texts/" + state + ".txt";
 
+    cout << path << endl;
+    // Input file stream
+    ifstream file { path };
+    // Create the buffer variable
+    stringstream buffer;
+    // Read the file buffer and put it inside the buffer variable
+    buffer << file.rdbuf();
+
+    return buffer.str();
 }
 
 void changeState(string newState) {
