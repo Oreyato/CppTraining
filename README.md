@@ -3,6 +3,6 @@
 Codex
 > Pong technical file - 169
 
-BrickBreaker : 
+Breakout : 
 - sounds are missing
 - otherwise v
