@@ -1,0 +1,5 @@
+Writing an adventure game\n
+Yes. Again. But that's a great practice!\n\n
+\t~and it will help my project\n\n
+\t\t A- Honestly, I don't care at all\n
+\t\t E- Yeah! A new project!\n

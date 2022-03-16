@@ -21,10 +21,13 @@ void drawUi();
 int const SCREEN_WIDTH = 960;
 int const SCREEN_HEIGHT = 540;
 
-// State
-int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
+string changeDescription();
+void changeState(string newState);
+
+string description;
+string state;
 
 //^ Game specific init ===========================================
 
@@ -57,6 +60,10 @@ void load()
     InitAudioDevice();
 
     //^ Sounds init ==================================================
+    //v Game specific ================================================
+    changeState("start");
+
+    //^ Game specific ================================================
 }
 
 // Unload game
@@ -68,14 +75,32 @@ void unload()
 // Game update
 void update()
 {
-    if (state == 0) {
-
+    if (state == "start") {
+        if (IsKeyPressed(KEY_Q)) {
+            changeState("deception");
+        }
+        else if (IsKeyPressed(KEY_E)) {
+            changeState("expectations");
+        }
     }
-    else if (state == 1) {
-        // If the player win
+    else if (state == "deception") {
+        if (IsKeyPressed(KEY_Q)) {
+            changeState("start");
+        }
+        else if (IsKeyPressed(KEY_E)) {
+            changeState("");
+        }
     }
-    else {
-        // If the player lose
+    else if (state == "expectations") {
+        if (IsKeyPressed(KEY_Q)) {
+            changeState("deception");
+        }
+        else if (IsKeyPressed(KEY_E)) {
+            changeState("");
+        }
+    }
+    else if (state == "") {
+        changeState("");
     }
 }
 
@@ -85,6 +110,9 @@ void draw()
     BeginDrawing();
     ClearBackground(BLACK);
 
+    // Draw description
+    DrawText(description.c_str(), 50, 20, 20, WHITE);
+
     drawUi();
     EndDrawing();
 }
@@ -93,4 +121,41 @@ void draw()
 void drawUi()
 {
 
+}
+
+string changeDescription() {
+    if (state == "start") {
+        return(
+            "Writing an adventure game\n"
+            "Yes. Again. But that's a great practice!\n\n"
+            "\t~and it will help my project\n\n"
+            "\t\t A- Honestly, I don't care at all\n"
+            "\t\t E- Yeah! A new project!\n"
+            );
+    }
+    else if (state == "deception") {
+        return (
+            "Oh...\n"
+            "You are joking right?\n\n"
+            "\t\t A- Obviously!\n"
+            "\t\t E- I am not"
+            );
+    }
+    else if (state == "expectations") {
+        return (
+            "Thanks!\n"
+            "What do you expect?\n\n"
+            "\t\t A- Schweppes!"
+            "\t\t E- An adventure text...?"
+            );
+    }
+    else {
+        return "...";
+    }
+
+}
+
+void changeState(string newState) {
+    state = newState;
+    description = changeDescription();
 }
