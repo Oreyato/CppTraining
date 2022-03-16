@@ -71,8 +71,8 @@ Rectangle rect{ 0, 0, WIDTH_BRICK, HEIGHT_BRICK };
 Brick brick{ rect, true };
 
 // Creating multiple bricks
-const int ROW_BRICKS = 2;
-const int COLUMN_BRICKS = 1;
+const int ROW_BRICKS = 10;
+const int COLUMN_BRICKS = 6;
 
 const int SPACING_BRICKS = 2;
 
@@ -252,9 +252,12 @@ void update()
                 ball.y = brick.rect.y + brick.rect.height;
                 // Set the brick visibility to false
                 brick.isVisible = false;
+                // Reduce bricks number
                 --nbBricks;
 
+                // Test if there aren't any bricks left
                 if (nbBricks <= 0) {
+                    // Change state to go to the win screen
                     state = 1;
                 }
             }
