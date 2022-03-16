@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 void load()
 {
     // Create the window 
-    string windowName = "BrickBreaker";
+    string windowName = "Breakout";
     InitWindow(WIDTH_SCREEN, HEIGHT_SCREEN, windowName.c_str());
     SetWindowPosition(0, 10);
     SetTargetFPS(60);
