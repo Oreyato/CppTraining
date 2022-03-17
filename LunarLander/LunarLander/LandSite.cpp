@@ -1,23 +1,6 @@
 #include "LandSite.h"
 
 LandSite::LandSite(std::string texturePathP, float xPosP, float yPosP) :
-	texturePath{ texturePathP },
-	xPos{ xPosP },
-	yPos{ yPosP }
+	Sprite{ texturePathP, xPosP, yPosP, 0.0f, false }
 {
-}
-
-void LandSite::load()
-{
-	texture = LoadTexture(texturePath.c_str());
-}
-
-void LandSite::draw()
-{
-	DrawTexture(texture, xPos, yPos, WHITE);
-}
-
-void LandSite::unload()
-{
-	UnloadTexture(texture);
 }

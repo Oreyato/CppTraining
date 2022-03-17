@@ -4,6 +4,7 @@
 
 class Sprite
 {
+public:
 	Sprite();
 	Sprite(std::string texturePathP, float xPosP, float yPosP, float rotationP, bool centeredP);
 
@@ -11,7 +12,7 @@ class Sprite
 	void draw();
 	void unload();
 
-private:
+protected:
 	Texture2D texture;
 	std::string texturePath{ "" };
 
