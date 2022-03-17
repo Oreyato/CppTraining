@@ -9,14 +9,14 @@ public:
 	Lander(std::string texturePathP, float xPosP, float yPosP, std::string flameTexturePathP);
 
 	void load();
-	void update();
+	void update(float dtP);
 	void draw();
 	void unload();
 
 private:
-	const float GRAVITY{ 0.2f };
-	const float THRUSTER{ -0.4f };
-	const float ROTATION_SPEED{ 2.0f };
+	const float GRAVITY{ 100.0f };
+	const float THRUSTER{ -200.0f };
+	const float ROTATION_SPEED{ 100.0f };
 
 	Texture2D texture;
 	Texture2D flameTexture;
@@ -33,6 +33,6 @@ private:
 	float yPos{ 0.0f };
 	float xSpeed{ 0.0f };
 	float ySpeed{ 0.0f };
-	float rotation{ 0.0f };
+	float rotation{ -PI / 2.0f };
 };
 

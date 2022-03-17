@@ -84,8 +84,11 @@ void unload()
 // Game update
 void update()
 {
+    // A world of justice... Adding delta time
+    float dt = GetFrameTime();
+
     if (state == 0) { // Main game loop
-        lander.update();
+        lander.update(dt);
 
     }
     else if (state == 1) { // If the player win

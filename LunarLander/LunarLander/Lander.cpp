@@ -1,4 +1,5 @@
 #include "Lander.h"
+#include <cmath>
 
 Lander::Lander() :
 	texturePath{ "../assets/images/lander.png" }
@@ -18,7 +19,7 @@ void Lander::load() {
 	texture = LoadTexture(texturePath.c_str());
 	flameTexture = LoadTexture(flameTexturePath.c_str());
 
-	// Define origin
+	// Define origin - don't forget to cast the texture width/height to float (were int)
 	origin = { (float)(texture.width / 2), (float)(texture.height / 2) };
 
 	// Center position on constructor parameters
@@ -29,10 +30,11 @@ void Lander::load() {
 	srcRect = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
 }
 
-void Lander::update() {
+void Lander::update(float dtP) {
 	// Accelerating upward when pressing space bar
 	if (IsKeyDown(KEY_SPACE)) {
-		ySpeed += THRUSTER;
+		xSpeed += cos(rotation) * abs(THRUSTER) * dtP;
+		ySpeed += sin(rotation) * abs(THRUSTER) * dtP;
 
 		// Changing boolean value to draw the thruster
 		isFlameVisible = true;
@@ -42,17 +44,17 @@ void Lander::update() {
 	}
 
 	if (IsKeyDown(KEY_Q)) {
-		rotation -= ROTATION_SPEED;
+		rotation -= ROTATION_SPEED * dtP;
 	}
 	else if (IsKeyDown(KEY_E)) {
-		rotation += ROTATION_SPEED;
+		rotation += ROTATION_SPEED * dtP;
 	}
 
 	// Accelerating lander vertical speed with the acceleration "GRAVITY"
-	ySpeed += GRAVITY;
+	ySpeed += GRAVITY * dtP;
 	// Updating lander position
-	xPos += xSpeed;
-	yPos += ySpeed;
+	xPos += xSpeed * dtP;
+	yPos += ySpeed * dtP;
 }
 
 void Lander::draw() {
