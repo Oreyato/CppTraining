@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include "Lander.h"
+
 using namespace std;
 
 //v ==============================================================
@@ -25,12 +27,8 @@ int const SCREEN_HEIGHT = 540;
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
+Lander lander = Lander("../assets/images/lander.png", SCREEN_WIDTH / 2, 25, "../assets/images/lander_flame.png");
 
-//v Textures =====================
-Texture2D lander;
-Texture2D landerFlame;
-
-//^ Textures =====================
 //^ Game specific init ===========================================
 
 int main(int argc, char* argv[])
@@ -65,10 +63,9 @@ void load()
     //v Game specifics ===============================================
 
     //v Textures =====================
-    lander = LoadTexture("../assets/images/lander.png");
-    landerFlame = LoadTexture("../assets/images/lander_flame.png");
+    lander.load();
 
-    //^ Textures ====================S=
+    //^ Textures =====================
     
     //^ Game specifics ===============================================
 }
@@ -77,8 +74,8 @@ void load()
 void unload()
 {
     //v Textures =====================
-    UnloadTexture(lander);
-    UnloadTexture(landerFlame);
+    lander.unload();
+
     //^ Textures =====================
 
     CloseWindow();
@@ -87,14 +84,15 @@ void unload()
 // Game update
 void update()
 {
-    if (state == 0) {
+    if (state == 0) { // Main game loop
+        lander.update();
 
     }
-    else if (state == 1) {
-        // If the player win
+    else if (state == 1) { // If the player win
+       
     }
-    else {
-        // If the player lose
+    else { // If the player lose
+        
     }
 }
 
@@ -105,8 +103,7 @@ void draw()
     ClearBackground(BLACK);
 
     //v Textures =====================
-    DrawTexture(lander, SCREEN_WIDTH / 2 - lander.width / 2, SCREEN_HEIGHT / 2 - lander.height / 2, WHITE);
-    //DrawTexture(landerFlame, SCREEN_WIDTH / 2 - landerFlame.width / 2, SCREEN_HEIGHT / 2 - landerFlame.height / 2, WHITE);
+    lander.draw();
 
     //^ Textures =====================
 
