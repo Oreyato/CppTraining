@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include <iostream>
 #include <stdio.h>  
 #include <math.h> 
@@ -6,6 +5,7 @@
 #include <string>
 
 #include "Lander.h"
+#include "LandSite.h"
 
 using namespace std;
 
@@ -27,7 +27,9 @@ int const SCREEN_HEIGHT = 540;
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
-Lander lander = Lander("../assets/images/lander.png", SCREEN_WIDTH / 2, 25, "../assets/images/lander_flame.png");
+Lander lander = Lander{ "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, "../assets/images/lander_flame.png" };
+
+LandSite landSite = LandSite{ "../assets/images/target.png", 400, 400 };
 
 //^ Game specific init ===========================================
 
@@ -50,7 +52,7 @@ int main(int argc, char* argv[])
 void load()
 {
     // Create the window 
-    string windowName = "GameWindow";
+    string windowName = "Lander";
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, windowName.c_str());
     SetWindowPosition(0, 10);
     SetTargetFPS(60);
@@ -64,6 +66,7 @@ void load()
 
     //v Textures =====================
     lander.load();
+    landSite.load();
 
     //^ Textures =====================
     
@@ -73,10 +76,8 @@ void load()
 // Unload game
 void unload()
 {
-    //v Textures =====================
     lander.unload();
-
-    //^ Textures =====================
+    landSite.unload();
 
     CloseWindow();
 }
@@ -89,7 +90,6 @@ void update()
 
     if (state == 0) { // Main game loop
         lander.update(dt);
-
     }
     else if (state == 1) { // If the player win
        
@@ -105,10 +105,8 @@ void draw()
     BeginDrawing();
     ClearBackground(BLACK);
 
-    //v Textures =====================
     lander.draw();
-
-    //^ Textures =====================
+    landSite.draw();
 
     drawUi();
     EndDrawing();

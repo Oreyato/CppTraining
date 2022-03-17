@@ -33,6 +33,6 @@ private:
 	float yPos{ 0.0f };
 	float xSpeed{ 0.0f };
 	float ySpeed{ 0.0f };
-	float rotation{ -PI / 2.0f };
+	float rotation{ 0.0f };
 };
 

@@ -1,5 +1,6 @@
 #include "Lander.h"
 #include <cmath>
+#include <iostream>
 
 Lander::Lander() :
 	texturePath{ "../assets/images/lander.png" }
@@ -7,10 +8,11 @@ Lander::Lander() :
 }
 
 Lander::Lander(std::string texturePathP, float xPosP, float yPosP, std::string flameTexturePathP) :
-	texturePath(texturePathP),
-	xPos(xPosP),
-	yPos(yPosP),
-	flameTexturePath(flameTexturePathP)
+	texturePath{ texturePathP },
+	xPos{ xPosP },
+	yPos{ yPosP },
+	flameTexturePath{ flameTexturePathP },
+	rotation{ -90.0f }
 {
 }
 
@@ -33,8 +35,8 @@ void Lander::load() {
 void Lander::update(float dtP) {
 	// Accelerating upward when pressing space bar
 	if (IsKeyDown(KEY_SPACE)) {
-		xSpeed += cos(rotation) * abs(THRUSTER) * dtP;
-		ySpeed += sin(rotation) * abs(THRUSTER) * dtP;
+		xSpeed += cos(rotation * PI / 180) * abs(THRUSTER) * dtP;
+		ySpeed += sin(rotation * PI / 180) * abs(THRUSTER) * dtP;
 
 		// Changing boolean value to draw the thruster
 		isFlameVisible = true;
@@ -61,7 +63,7 @@ void Lander::draw() {
 	// Define destination rectangle
 	dstRect = { xPos, yPos, (float)texture.width, (float)texture.height };
 	// Draw default texture
-	DrawTexturePro(texture,srcRect, dstRect, origin, rotation, WHITE);
+	DrawTexturePro(texture, srcRect, dstRect, origin, rotation, WHITE);
 
 	if (isFlameVisible) {
 		DrawTexturePro(flameTexture, srcRect, dstRect, origin, rotation, WHITE);

@@ -15,9 +15,21 @@
     <ClCompile Include="Lander.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LandSite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lander.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LandSite.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>
