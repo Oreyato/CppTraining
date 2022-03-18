@@ -16,8 +16,6 @@ public:
 	std::string rotationFormat(int angleP);
 
 private:
-	const int VERTICAL_SPACING{ 25 };
-
 	Lander& lander;
 
 	int xPos{ 0 };

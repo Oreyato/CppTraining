@@ -170,6 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Consts.cpp" />
     <ClCompile Include="Lander.cpp" />
     <ClCompile Include="LanderInterface.cpp" />
     <ClCompile Include="LandSite.cpp" />
@@ -182,6 +183,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Consts.h" />
     <ClInclude Include="Lander.h" />
     <ClInclude Include="LanderInterface.h" />
     <ClInclude Include="LandSite.h" />

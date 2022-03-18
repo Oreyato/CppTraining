@@ -24,6 +24,9 @@
     <ClCompile Include="LanderInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Consts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lander.h">
@@ -36,6 +39,9 @@
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="LanderInterface.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Consts.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>

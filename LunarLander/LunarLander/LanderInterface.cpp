@@ -18,8 +18,8 @@ void LanderInterface::update(float dtP)
 void LanderInterface::draw()
 {
 	DrawText(xSpeedLabel.c_str(), xPos, yPos, 10, WHITE);
-	DrawText(ySpeedLabel.c_str(), xPos, yPos + VERTICAL_SPACING, 10, WHITE);
-	DrawText(rotationLabel.c_str(), xPos, yPos + VERTICAL_SPACING * 2, 10, WHITE);
+	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING, 10, WHITE);
+	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, WHITE);
 }
 
 std::string LanderInterface::xSpeedFormat(float xSpeedP)
