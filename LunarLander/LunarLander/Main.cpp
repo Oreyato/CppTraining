@@ -2,10 +2,10 @@
 #include <stdio.h>  
 #include <math.h> 
 #include <vector>
-#include <string>
 
 #include "Lander.h"
 #include "LandSite.h"
+#include "LanderInterface.h"
 
 using namespace std;
 
@@ -29,6 +29,7 @@ int state = 0;
 //v Game specific init ===========================================
 Lander lander { "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, true};
 LandSite landSite { "../assets/images/land_site.png", 400, 400 };
+LanderInterface landerInterface{ 50, 50, lander};
 
 int streak = 0;
 int bestStreak = 0;
@@ -94,6 +95,7 @@ void update()
 
     if (state == 0) { // Main game loop
         lander.update(dt);
+        landerInterface.update(dt);
 
         // Raylib collision check
         Rectangle rectLander = lander.getRectangle();
@@ -148,7 +150,7 @@ void draw()
 // Draw UI
 void drawUi()
 {
-
+    landerInterface.draw();
 }
 
 // Reset game
@@ -157,6 +159,9 @@ void resetGame() {
     lander.setRotation(-PI / 2);
     lander.setXPos(SCREEN_WIDTH / 2);
     lander.setYPos(25);   
-    
+    lander.setXSpeed(0);
+    lander.setYSpeed(0);
+    lander.setIsFlameVisible(false);
+
     state = 0;
 }

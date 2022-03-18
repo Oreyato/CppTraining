@@ -18,6 +18,13 @@ public:
 	void draw() override;
 	void unload() override;
 
+	float getXSpeed() { return xSpeed; }
+	float getYSpeed() { return ySpeed; }
+
+	void setXSpeed(float xSpeedP) { xSpeed = xSpeedP; }
+	void setYSpeed(float ySpeedP) { ySpeed = ySpeedP; }
+	void setIsFlameVisible(bool isFlameVisibleP) { isFlameVisible = isFlameVisibleP; }
+
 	bool goodLanding();
 
 private:

@@ -171,6 +171,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Lander.cpp" />
+    <ClCompile Include="LanderInterface.cpp" />
     <ClCompile Include="LandSite.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -182,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lander.h" />
+    <ClInclude Include="LanderInterface.h" />
     <ClInclude Include="LandSite.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
