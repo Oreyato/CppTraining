@@ -69,11 +69,8 @@ void load()
     //^ Sounds init ==================================================
     //v Game specifics ===============================================
 
-    //v Textures =====================
     lander.load();
     landSite.load();
-
-    //^ Textures =====================
     
     //^ Game specifics ===============================================
 }
@@ -156,12 +153,7 @@ void drawUi()
 // Reset game
 void resetGame() {
     // Reset lander parameters
-    lander.setRotation(-PI / 2);
-    lander.setXPos(SCREEN_WIDTH / 2);
-    lander.setYPos(25);   
-    lander.setXSpeed(0);
-    lander.setYSpeed(0);
-    lander.setIsFlameVisible(false);
+    lander.reset();
 
     state = 0;
 }

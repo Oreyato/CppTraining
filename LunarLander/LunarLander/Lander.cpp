@@ -3,7 +3,9 @@
 #include <iostream>
 
 Lander::Lander(std::string texturePathP, float xPosP, float yPosP, bool centeredP) :
-	Sprite {texturePathP, xPosP, yPosP, - PI / 2, centeredP}
+	Sprite {texturePathP, xPosP, yPosP, - PI / 2, centeredP},
+	initXPos{xPosP},
+	initYPos{yPosP}
 {
 }
 
@@ -84,4 +86,14 @@ bool Lander::goodLanding()
 	return (abs(ySpeed) < Consts::MAX_YSPEED
 		&& abs(xSpeed) < Consts::MAX_XSPEED
 		&& ((rotation360 < Consts::ROTATION_MAX_DEGREE) || (rotation360 > 360 - Consts::ROTATION_MAX_DEGREE)));
+}
+
+void Lander::reset()
+{
+	rotation = -PI / 2;
+	xPos = initXPos;
+	yPos = initYPos;
+	xSpeed = 0.0f;
+	ySpeed = 0.0f;
+	isFlameVisible = false;
 }

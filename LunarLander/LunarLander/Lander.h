@@ -30,6 +30,8 @@ public:
 	int rotationFormat();
 	bool goodLanding();
 
+	void reset();
+
 private:
 	Sprite flame{ "../assets/images/lander_flame.png", 0.0f, 0.0f, 0.0f, true };
 	bool isFlameVisible{ false };
@@ -38,5 +40,8 @@ private:
 
 	float xSpeed{ 0.0f };
 	float ySpeed{ 0.0f };
+
+	float initXPos{ 0.0f };
+	float initYPos{ 0.0f };
 };
 
