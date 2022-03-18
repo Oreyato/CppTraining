@@ -41,6 +41,8 @@ void Lander::update(float dtP) {
 	xPos += xSpeed * dtP;
 	yPos += ySpeed * dtP;
 
+	rotation360 = rotationFormat();
+
 	// Updating flame sprite coordinates
 	flame.setXPos(xPos);
 	flame.setYPos(yPos);
@@ -63,9 +65,23 @@ void Lander::unload() {
 	Sprite::unload();
 }
 
+int Lander::rotationFormat()
+{
+	// Compensate raylib orientation system
+	float ajustedRotation = rotation + PI / 2.0f;
+	// Convert it to degrees	
+	float rotationToDegrees = ajustedRotation * 180.0f / PI;
+	// Create a clearer value
+	int roundedRotation = round(rotationToDegrees);
+	// Keep the rotation between 0 and 360
+	rotation360 = roundedRotation % 360;
+
+	return rotation360;
+}
+
 bool Lander::goodLanding()
 {
 	return (abs(ySpeed) < MAX_YSPEED 
 		&& abs(xSpeed) < MAX_XSPEED 
-		&& abs(rotation * 180.0f / PI) < ROTATION_MAX_DEGREE);
+		&& ((rotation360 < ROTATION_MAX_DEGREE) || (rotation360 > 360 - ROTATION_MAX_DEGREE)));
 }

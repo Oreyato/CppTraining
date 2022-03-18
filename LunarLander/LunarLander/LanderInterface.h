@@ -11,6 +11,10 @@ public:
 	void update(float dtP);
 	void draw();
 
+	std::string xSpeedFormat(float xSpeedP);
+	std::string ySpeedFormat(float ySpeedP);
+	std::string rotationFormat(int angleP);
+
 private:
 	const int VERTICAL_SPACING{ 25 };
 
