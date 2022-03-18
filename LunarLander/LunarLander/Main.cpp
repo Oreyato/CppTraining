@@ -27,9 +27,9 @@ int const SCREEN_HEIGHT = 540;
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
-Lander lander = Lander{ "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, "../assets/images/lander_flame.png" };
+Lander lander { "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, true};
 
-LandSite landSite = LandSite{ "../assets/images/target.png", 400, 400 };
+LandSite landSite { "../assets/images/target.png", 400, 400 };
 
 //^ Game specific init ===========================================
 
