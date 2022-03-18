@@ -28,8 +28,12 @@ int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 Lander lander { "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, true};
+LandSite landSite { "../assets/images/land_site.png", 400, 400 };
 
-LandSite landSite { "../assets/images/target.png", 400, 400 };
+int streak = 0;
+int bestStreak = 0;
+
+void resetGame();
 
 //^ Game specific init ===========================================
 
@@ -90,12 +94,41 @@ void update()
 
     if (state == 0) { // Main game loop
         lander.update(dt);
+
+        // Raylib collision check
+        Rectangle rectLander = lander.getRectangle();
+        Rectangle rectLandSite = landSite.getRectangle();
+        // Do both rects intersects?
+        if (CheckCollisionRecs(rectLander, rectLandSite)) {
+            // Get rectangles limits on the right (on the left: rectLander.x and rectLandSite.x)
+            float maxXPosLander = rectLander.x + rectLander.width;
+            float maxXPosLandSite = rectLandSite.x + rectLandSite.width;
+
+            // If so, is the lander entirely on the landsite? && is it a good landing?
+            if (rectLander.x >= rectLandSite.x && maxXPosLander <= maxXPosLandSite && lander.goodLanding()) {
+                state = 1;
+            }
+            else {
+                state = 2;
+            }
+        }
     }
     else if (state == 1) { // If the player win
-       
+        if (IsKeyPressed(KEY_R)) {
+            streak++;
+
+            if (streak > bestStreak) {
+                bestStreak = streak;
+            }
+
+            resetGame();
+        }
     }
-    else { // If the player lose
-        
+    else if (state == 2) { // If the player lose
+        if (IsKeyPressed(KEY_R)) {
+            streak = 0;
+            resetGame();
+        }
     }
 }
 
@@ -116,4 +149,14 @@ void draw()
 void drawUi()
 {
 
+}
+
+// Reset game
+void resetGame() {
+    // Reset lander parameters
+    lander.setRotation(-PI / 2);
+    lander.setXPos(SCREEN_WIDTH / 2);
+    lander.setYPos(25);   
+    
+    state = 0;
 }

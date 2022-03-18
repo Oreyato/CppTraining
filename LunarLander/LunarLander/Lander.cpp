@@ -40,4 +40,32 @@ void Lander::update(float dtP) {
 	// Updating lander position
 	xPos += xSpeed * dtP;
 	yPos += ySpeed * dtP;
+
+	// Updating flame sprite coordinates
+	flame.setXPos(xPos);
+	flame.setYPos(yPos);
+	flame.setRotation(rotation);
+	flame.setVisible(isFlameVisible);
+}
+
+void Lander::load() {
+	flame.load();
+	Sprite::load();
+}
+
+void Lander::draw() {
+	Sprite::draw();
+	flame.draw();
+}
+
+void Lander::unload() {
+	flame.unload();
+	Sprite::unload();
+}
+
+bool Lander::goodLanding()
+{
+	return (abs(ySpeed) < MAX_YSPEED 
+		&& abs(xSpeed) < MAX_XSPEED 
+		&& abs(rotation * 180.0f / PI) < ROTATION_MAX_DEGREE);
 }

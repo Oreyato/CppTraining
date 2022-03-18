@@ -31,3 +31,10 @@ void Sprite::unload()
 {
 	UnloadTexture(texture);
 }
+
+Rectangle Sprite::getRectangle()
+{
+	Rectangle rect{ xPos - origin.x, yPos - origin.y, (float)texture.width, (float)texture.height };
+
+	return rect;
+}
