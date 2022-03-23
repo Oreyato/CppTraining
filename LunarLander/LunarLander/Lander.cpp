@@ -59,7 +59,10 @@ void Lander::load() {
 
 void Lander::draw() {
 	Sprite::draw();
-	flame.draw();
+
+	if (isFlameVisible) {
+		flame.draw();
+	}
 }
 
 void Lander::unload() {

@@ -103,6 +103,9 @@ void update()
             float maxXPosLander = rectLander.x + rectLander.width;
             float maxXPosLandSite = rectLandSite.x + rectLandSite.width;
 
+            // Turn off the flame
+            lander.setIsFlameVisible(false);
+
             // If so, is the lander entirely on the landsite? && is it a good landing?
             if (rectLander.x >= rectLandSite.x && maxXPosLander <= maxXPosLandSite && lander.goodLanding()) {
                 state = 1;
