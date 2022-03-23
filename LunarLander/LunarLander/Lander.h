@@ -28,6 +28,9 @@ public:
 	void setIsFlameVisible(bool isFlameVisibleP) { isFlameVisible = isFlameVisibleP; }
 
 	int rotationFormat();
+	bool isXSpeedOk() { return abs(xSpeed) < Consts::MAX_XSPEED; }
+	bool isYSpeedOk() { return abs(ySpeed) < Consts::MAX_YSPEED; }
+	bool isRotationOk();
 	bool goodLanding();
 
 	void reset();

@@ -8,7 +8,7 @@ const int Consts::YPOS_END_TEXT{ 150 };
 // Lander
 const float Consts::GRAVITY{ 100.0f };
 const float Consts::THRUSTER{ -200.0f };
-const float Consts::ROTATION_SPEED{ 3.0f };
+const float Consts::ROTATION_SPEED{ 2.0f };
 const float Consts::ROTATION_MAX_DEGREE{ 8.0f };
 const float Consts::MAX_XSPEED{ 25.0f };
 const float Consts::MAX_YSPEED{ 60.0f }; // Pushed the value quite high for a better feeling

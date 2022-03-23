@@ -10,6 +10,12 @@ LanderInterface::LanderInterface(int xPosP, int yPosP, Lander& landerP) :
 
 void LanderInterface::update(float dtP)
 {
+	// Check for landing conditions
+	xSpeedOk = lander.isXSpeedOk();
+	ySpeedOk = lander.isYSpeedOk();
+	rotationOk = lander.isRotationOk();
+
+	// Modify labels
 	xSpeedLabel = xSpeedFormat(lander.getXSpeed());
 	ySpeedLabel = ySpeedFormat(lander.getYSpeed());
 	rotationLabel = rotationFormat(lander.getRotation360());
@@ -17,9 +23,20 @@ void LanderInterface::update(float dtP)
 
 void LanderInterface::draw()
 {
-	DrawText(xSpeedLabel.c_str(), xPos, yPos, 10, WHITE);
-	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING, 10, WHITE);
-	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, WHITE);
+	// Modify indications colors 
+	// Heavy version
+	Color xSpeedColor;
+	if (xSpeedOk) {
+		xSpeedColor = WHITE;
+	}
+	else xSpeedColor = RED;
+	// Lighter version - ternary operator
+	Color ySpeedColor = ySpeedOk ? WHITE : RED;
+	Color rotationColor = rotationOk ? WHITE : RED;
+
+	DrawText(xSpeedLabel.c_str(), xPos, yPos, 10, xSpeedColor);
+	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING, 10, ySpeedColor);
+	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, rotationColor);
 
 	if (isEndTextVisible) {
 		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, WHITE);

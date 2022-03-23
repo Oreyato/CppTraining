@@ -23,6 +23,10 @@ private:
 
 	bool isEndTextVisible{ false };
 
+	bool xSpeedOk{ false };
+	bool ySpeedOk{ false };
+	bool rotationOk{ false };
+
 	int xPos{ 0 };
 	int yPos{ 0 };
 

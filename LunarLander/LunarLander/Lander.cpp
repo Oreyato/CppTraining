@@ -81,11 +81,16 @@ int Lander::rotationFormat()
 	return rotation360;
 }
 
+bool Lander::isRotationOk()
+{
+	int rotation360 = rotationFormat();
+
+	return (rotation360 < Consts::ROTATION_MAX_DEGREE) || (rotation360 > 360 - Consts::ROTATION_MAX_DEGREE);
+}
+
 bool Lander::goodLanding()
 {
-	return (abs(ySpeed) < Consts::MAX_YSPEED
-		&& abs(xSpeed) < Consts::MAX_XSPEED
-		&& ((rotation360 < Consts::ROTATION_MAX_DEGREE) || (rotation360 > 360 - Consts::ROTATION_MAX_DEGREE)));
+	return (isXSpeedOk() && isYSpeedOk() && isRotationOk());
 }
 
 void Lander::reset()
