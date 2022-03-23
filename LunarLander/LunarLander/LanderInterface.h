@@ -15,8 +15,13 @@ public:
 	std::string ySpeedFormat(float ySpeedP);
 	std::string rotationFormat(int angleP);
 
+	void showEndText(int state);
+	void hideEndText();
+
 private:
 	Lander& lander;
+
+	bool isEndTextVisible{ false };
 
 	int xPos{ 0 };
 	int yPos{ 0 };
@@ -24,5 +29,6 @@ private:
 	std::string xSpeedLabel{ "X speed: 0" };
 	std::string ySpeedLabel{ "Y speed: 0" };
 	std::string rotationLabel{ "Angle: 0" };
+	std::string endText{ "End text" };
 };
 

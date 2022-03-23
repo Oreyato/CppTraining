@@ -20,6 +20,10 @@ void LanderInterface::draw()
 	DrawText(xSpeedLabel.c_str(), xPos, yPos, 10, WHITE);
 	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING, 10, WHITE);
 	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, WHITE);
+
+	if (isEndTextVisible) {
+		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, WHITE);
+	}
 }
 
 std::string LanderInterface::xSpeedFormat(float xSpeedP)
@@ -57,4 +61,21 @@ std::string LanderInterface::rotationFormat(int angleP)
 	std::string rotationText = "Angle: " + std::to_string(angleP);
 	
 	return rotationText;
+}
+
+void LanderInterface::showEndText(int state)
+{
+	if (state == 1) { // Win state
+		endText = "Perfect landing!\nPress \"R\" to try again";
+	}
+	else if (state == 2) { // Lose state
+		endText = "Lander destroyed...\nPress \"R\" to try again";
+	}
+
+	isEndTextVisible = true;
+}
+
+void LanderInterface::hideEndText()
+{
+	isEndTextVisible = false;
 }

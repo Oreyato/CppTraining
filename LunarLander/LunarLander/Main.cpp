@@ -106,9 +106,11 @@ void update()
             // If so, is the lander entirely on the landsite? && is it a good landing?
             if (rectLander.x >= rectLandSite.x && maxXPosLander <= maxXPosLandSite && lander.goodLanding()) {
                 state = 1;
+                landerInterface.showEndText(state);
             }
             else {
                 state = 2;
+                landerInterface.showEndText(state);
             }
         }
     }
@@ -154,6 +156,9 @@ void drawUi()
 void resetGame() {
     // Reset lander parameters
     lander.reset();
+
+    // Reset lander interface end message
+    landerInterface.hideEndText();
 
     state = 0;
 }

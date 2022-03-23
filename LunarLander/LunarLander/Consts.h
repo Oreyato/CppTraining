@@ -12,6 +12,8 @@ public:
 
 	// UI
 	static const int VERTICAL_SPACING;
+	static const int XPOS_END_TEXT;
+	static const int YPOS_END_TEXT;
 
 	// Lander
 	static const float GRAVITY;
