@@ -42,9 +42,11 @@ private:
 	std::string ySpeedLabel{ "Y speed: 0" };
 	std::string rotationLabel{ "Angle: 0" };
 
+	int streakTextSize{ 0 };
 	std::string streakLabel{ "Current streak: 0" };
 	std::string bestStreakLabel{ "Best streak: 0" };
 
+	int endTextSize{ 0 };
 	std::string endText{ "End text" };
 	Color endTextColor{WHITE};
 };

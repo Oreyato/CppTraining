@@ -23,7 +23,7 @@ void draw();
 void drawUi();
 
 // State
-int state = 0;
+int state = -1;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 Lander lander { "../assets/images/lander.png", Consts::SCREEN_WIDTH / 2, 25, true};
@@ -88,11 +88,19 @@ void unload()
 void update()
 {
     // A world of justice... Adding delta time
-    float dt = GetFrameTime();
+    float dt = GetFrameTime();  
 
+    // Introduction
+    if (state == -1) {
+        landerInterface.showEndText(state);
 
+        if (IsKeyPressed(KEY_R)) {
+            state = 0;
+            landerInterface.hideEndText();
+        }
+    }
     // Main game loop
-    if (state == 0) { 
+    else if (state == 0) { 
         lander.update(dt);
         landerInterface.update(dt);
 

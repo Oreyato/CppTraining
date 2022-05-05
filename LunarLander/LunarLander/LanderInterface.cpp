@@ -46,8 +46,11 @@ void LanderInterface::draw()
 
 	if (isEndTextVisible) {
 		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, endTextColor);
-		DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, 15, WHITE);
-		DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, 15, WHITE);
+
+		if (streakTextSize != 0) {
+			DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, streakTextSize, WHITE);
+			DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, streakTextSize, WHITE);
+		}
 	}
 }
 
@@ -120,13 +123,25 @@ std::string LanderInterface::bestStreakFormat(float bestStreakP)
 
 void LanderInterface::showEndText(int state)
 {
+	if (state == -1) {
+		endText = "Dodge mountains and land perfectly\nWe count on you pilot!\n\t\t\t\"Q\" and \"E\" to tilt\n\t\t\t\"SPACEBAR\" to trust \n\n\t\t\t\"R\" to start";
+		endTextSize = 15;
+		endTextColor = WHITE;
+	}
+
 	if (state == 1) { // Win state
 		endText = "Perfect landing!\nPress \"R\" to try again";
+		endTextSize = 20;
 		endTextColor = GREEN;
+
+		streakTextSize = 15;
 	}
 	else if (state == 2) { // Lose state
 		endText = "Lander destroyed...\nPress \"R\" to try again";
+		endTextSize = 20;
 		endTextColor = RED;
+
+		streakTextSize = 15;
 	}
 
 	isEndTextVisible = true;
