@@ -46,5 +46,6 @@ private:
 	std::string bestStreakLabel{ "Best streak: 0" };
 
 	std::string endText{ "End text" };
+	Color endTextColor{WHITE};
 };
 

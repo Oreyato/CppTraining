@@ -45,10 +45,8 @@ void LanderInterface::draw()
 	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 4, 10, rotationColor);
 
 	if (isEndTextVisible) {
-		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, WHITE);
-		DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, 15, BLACK);
+		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, endTextColor);
 		DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, 15, WHITE);
-		DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, 15, BLACK);
 		DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, 15, WHITE);
 	}
 }
@@ -124,9 +122,11 @@ void LanderInterface::showEndText(int state)
 {
 	if (state == 1) { // Win state
 		endText = "Perfect landing!\nPress \"R\" to try again";
+		endTextColor = GREEN;
 	}
 	else if (state == 2) { // Lose state
 		endText = "Lander destroyed...\nPress \"R\" to try again";
+		endTextColor = RED;
 	}
 
 	isEndTextVisible = true;

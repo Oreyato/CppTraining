@@ -90,6 +90,7 @@ void update()
     // A world of justice... Adding delta time
     float dt = GetFrameTime();
 
+
     // Main game loop
     if (state == 0) { 
         lander.update(dt);
