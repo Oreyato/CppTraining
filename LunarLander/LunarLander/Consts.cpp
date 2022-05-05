@@ -27,4 +27,4 @@ const float Consts::LANDSITE_WIDTH{50.0f};
 const int Consts::MOUNTAIN_HEIGHT_START{ 400 };
 const int Consts::MOUNTAIN_SUMMIT_SEPARATOR{ 100 };
 const int Consts::MOUNTAIN_HEIGHT_MIN{ 200 };
-const int Consts::MOUNTAIN_POINTS_SPACING{ 5 };
+const int Consts::MOUNTAIN_POINTS_SPACING{ 1 };

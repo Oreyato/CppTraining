@@ -12,11 +12,16 @@ void Mountains::draw()
 	for (Line line : lines) {
 		DrawLineV(line.start, line.end, WHITE);
 	}
+
+	for (Vector2 point : pointsCoordinates) {
+		DrawPixelV(point, RED);
+	}
 }
 
 void Mountains::eraseLines()
 {
 	lines.clear();
+	pointsCoordinates.clear();
 }
 
 void Mountains::addLine(Vector2 startP, Vector2 endP)
@@ -28,12 +33,13 @@ void Mountains::addLine(Vector2 startP, Vector2 endP)
 	// Line equation ========================
 	// Find a
 	float a = (endP.y - startP.y) / (endP.x - startP.x);
+
 	float range = endP.x - startP.x;
 
 	// Add points along the line to pointsCoordinates vector
 	for (int x = startP.x; x < range; x += Consts::MOUNTAIN_POINTS_SPACING)
 	{
-		Vector2 point{ x, a * x };
+		Vector2 point{ x, startP.y + a * x };
 
 		pointsCoordinates.push_back(point);
 	}
