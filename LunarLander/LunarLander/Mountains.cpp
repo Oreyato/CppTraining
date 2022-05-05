@@ -10,12 +10,14 @@ Mountains::Mountains(float siteXposP, float siteYposP)
 void Mountains::draw()
 {
 	for (Line line : lines) {
-		DrawLineV(line.start, line.end, WHITE);
+		DrawLineV(line.start, line.end, ORANGE);
 	}
 
+	/*
 	for (Vector2 point : pointsCoordinates) {
 		DrawPixelV(point, RED);
 	}
+	*/
 }
 
 void Mountains::eraseLines()
@@ -37,9 +39,9 @@ void Mountains::addLine(Vector2 startP, Vector2 endP)
 	float range = endP.x - startP.x;
 
 	// Add points along the line to pointsCoordinates vector
-	for (int x = startP.x; x < range; x += Consts::MOUNTAIN_POINTS_SPACING)
+	for (int x = startP.x; x < startP.x + range; x += Consts::MOUNTAIN_POINTS_SPACING)
 	{
-		Vector2 point{ x, startP.y + a * x };
+		Vector2 point{ x, startP.y + a * (x - startP.x) };
 
 		pointsCoordinates.push_back(point);
 	}
@@ -67,7 +69,7 @@ void Mountains::drawLines(float siteXposP, float siteYposP)
 				// Give summit from where to start to draw again
 				i = floor(start.x / Consts::MOUNTAIN_SUMMIT_SEPARATOR);
 			}
-			// If the site is to short to go to the next summit
+			// If the site is too short to go to the next summit
 			else {
 				mustDrawEnd = true;
 			}
@@ -96,7 +98,7 @@ void Mountains::drawLines(float siteXposP, float siteYposP)
 			// Add line
 			addLine(start, end);
 
-			// Define new line start
+			// Define next line start
 			start = { end.x, end.y };
 
 			++i;
