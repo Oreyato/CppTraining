@@ -14,10 +14,12 @@ public:
 	void drawLines(float siteXposP, float siteYposP);
 
 	std::vector<Line> getLines() { return lines; }
+	std::vector<Vector2> getPointsCoordinates() { return pointsCoordinates; }
 
 	void setLines(std::vector<Line> linesP) { lines = linesP; }
 
 private:
 	std::vector<Line> lines;
+	std::vector<Vector2> pointsCoordinates;
 };
 

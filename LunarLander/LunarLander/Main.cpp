@@ -17,6 +17,7 @@ using namespace std;
 void load();
 void unload();
 void update();
+bool collidesWithMountains();
 bool outOfScreen();
 void draw();
 void drawUi();
@@ -120,6 +121,10 @@ void update()
                 state = 2;
             }
         }
+        // Check if the lander touches the mountains
+        else if (collidesWithMountains()) {
+            state = 2;
+        }
         // Check if the lander goes out of screen
         else if (outOfScreen()) {
             state = 2;
@@ -146,6 +151,20 @@ void update()
             resetGame();
         }
     }
+}
+
+bool collidesWithMountains() {
+    vector<Vector2> pointsCoordinates = mountains.getPointsCoordinates();
+
+    for (Vector2 point : pointsCoordinates) {
+        if ((lander.getXPos() - Consts::MOUNTAIN_POINTS_SPACING < point.x) && (point.x < lander.getXPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
+            if ((lander.getYPos() - Consts::MOUNTAIN_POINTS_SPACING < point.y) && (point.y < lander.getYPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 bool outOfScreen() {

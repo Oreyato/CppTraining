@@ -37,4 +37,5 @@ public:
 	static const int MOUNTAIN_HEIGHT_START;
 	static const int MOUNTAIN_SUMMIT_SEPARATOR;
 	static const int MOUNTAIN_HEIGHT_MIN;
+	static const int MOUNTAIN_POINTS_SPACING;
 };

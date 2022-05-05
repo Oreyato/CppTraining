@@ -21,8 +21,22 @@ void Mountains::eraseLines()
 
 void Mountains::addLine(Vector2 startP, Vector2 endP)
 {
+	// Create a new line and add it inside the vector
 	Line line{ startP, endP };
 	lines.push_back(line);
+
+	// Line equation ========================
+	// Find a
+	float a = (endP.y - startP.y) / (endP.x - startP.x);
+	float range = endP.x - startP.x;
+
+	// Add points along the line to pointsCoordinates vector
+	for (int x = startP.x; x < range; x += Consts::MOUNTAIN_POINTS_SPACING)
+	{
+		Vector2 point{ x, a * x };
+
+		pointsCoordinates.push_back(point);
+	}
 }
 
 void Mountains::drawLines(float siteXposP, float siteYposP)
