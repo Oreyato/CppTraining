@@ -17,7 +17,7 @@ using namespace std;
 void load();
 void unload();
 void update();
-bool collidesWithMountains();
+bool collidesWithMountains(Rectangle landerP);
 bool outOfScreen();
 void draw();
 void drawUi();
@@ -122,7 +122,7 @@ void update()
             }
         }
         // Check if the lander touches the mountains
-        else if (collidesWithMountains()) {
+        else if (collidesWithMountains(rectLander)) {
             state = 2;
         }
         // Check if the lander goes out of screen
@@ -153,14 +153,17 @@ void update()
     }
 }
 
-bool collidesWithMountains() {
+bool collidesWithMountains(Rectangle landerP) {
     vector<Vector2> pointsCoordinates = mountains.getPointsCoordinates();
 
     for (Vector2 point : pointsCoordinates) {
-        if ((lander.getXPos() - Consts::MOUNTAIN_POINTS_SPACING < point.x) && (point.x < lander.getXPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
-            if ((lander.getYPos() - Consts::MOUNTAIN_POINTS_SPACING < point.y) && (point.y < lander.getYPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
-                return true;
-            }
+        //if ((lander.getXPos() - Consts::MOUNTAIN_POINTS_SPACING < point.x) && (point.x < lander.getXPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
+        //    if ((lander.getYPos() - Consts::MOUNTAIN_POINTS_SPACING < point.y) && (point.y < lander.getYPos() + Consts::MOUNTAIN_POINTS_SPACING)) {
+        //        return true;
+        //    }
+        //}
+        if (CheckCollisionPointRec(point, landerP)) {
+            return true;
         }
     }
 
