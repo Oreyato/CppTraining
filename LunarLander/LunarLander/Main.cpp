@@ -6,6 +6,7 @@
 #include "Lander.h"
 #include "LandSite.h"
 #include "LanderInterface.h"
+#include "Mountains.h"
 
 using namespace std;
 
@@ -24,8 +25,9 @@ int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
 Lander lander { "../assets/images/lander.png", Consts::SCREEN_WIDTH / 2, 25, true};
-LandSite landSite { "../assets/images/land_site.png", 400, 400 };
+LandSite landSite { "../assets/images/land_site.png", Consts::LANDSITE_START_XPOS, Consts::LANDSITE_START_YPOS };
 LanderInterface landerInterface{ 50, 50, lander};
+Mountains mountains { Consts::LANDSITE_START_XPOS, Consts::LANDSITE_START_YPOS };
 
 int streak = 0;
 int bestStreak = 0;
@@ -123,7 +125,6 @@ void update()
             }
 
             resetGame();
-            landSite.changeSite();
         }
     }
     else if (state == 2) { // If the player lose
@@ -141,8 +142,9 @@ void draw()
     BeginDrawing();
     ClearBackground(BLACK);
 
-    lander.draw();
+    mountains.draw();
     landSite.draw();
+    lander.draw();
 
     drawUi();
     EndDrawing();
@@ -161,6 +163,9 @@ void resetGame() {
 
     // Reset lander interface end message
     landerInterface.hideEndText();
+
+    // Change landsite
+    landSite.changeSite();
 
     state = 0;
 }

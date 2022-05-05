@@ -28,6 +28,13 @@ public:
 	static const float MAX_YSPEED;
 
 	// Landsite
+	static const float LANDSITE_START_XPOS;
+	static const float LANDSITE_START_YPOS;
 	static const float LANDSITE_MIN_YPOS;
 	static const float LANDSITE_WIDTH;
+
+	// Mountains
+	static const int MOUNTAIN_HEIGHT_START;
+	static const int MOUNTAIN_SUMMIT_SEPARATOR;
+	static const int MOUNTAIN_HEIGHT_MIN;
 };

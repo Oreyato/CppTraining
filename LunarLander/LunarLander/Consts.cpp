@@ -17,6 +17,13 @@ const float Consts::ROTATION_MAX_DEGREE{ 8.0f };
 const float Consts::MAX_XSPEED{ 25.0f };
 const float Consts::MAX_YSPEED{ 60.0f }; // Pushed the value quite high for a better feeling
 
-// Site
+// Landsite
+const float Consts::LANDSITE_START_XPOS{ 400.0f };
+const float Consts::LANDSITE_START_YPOS{ 400.0f };
 const float Consts::LANDSITE_MIN_YPOS{ 300.0f };
 const float Consts::LANDSITE_WIDTH{50.0f};
+
+// Mountains
+const int Consts::MOUNTAIN_HEIGHT_START{ 400 };
+const int Consts::MOUNTAIN_SUMMIT_SEPARATOR{ 100 };
+const int Consts::MOUNTAIN_HEIGHT_MIN{ 200 };

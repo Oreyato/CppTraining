@@ -3,9 +3,11 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{E9C7FDCE-D52A-8D73-7EB0-C5296AF258F6}</UniqueIdentifier>
+      <Extensions>.cpp</Extensions>
     </Filter>
     <Filter Include="HeaderFiles">
       <UniqueIdentifier>{c43362ad-1a67-497e-89bd-18565608096c}</UniqueIdentifier>
+      <Extensions>.h</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +29,9 @@
     <ClCompile Include="Consts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mountains.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lander.h">
@@ -42,6 +47,12 @@
       <Filter>HeaderFiles</Filter>
     </ClInclude>
     <ClInclude Include="Consts.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Mountains.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
       <Filter>HeaderFiles</Filter>
     </ClInclude>
   </ItemGroup>
