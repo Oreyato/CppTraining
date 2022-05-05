@@ -10,6 +10,10 @@ public:
 	//	to declare them in a .cpp file, not directly in the .h 
 	//^ ==============================================================
 
+	//
+	static const float SCREEN_WIDTH;
+	static const float SCREEN_HEIGHT;
+
 	// UI
 	static const int VERTICAL_SPACING;
 	static const int XPOS_END_TEXT;
@@ -22,4 +26,8 @@ public:
 	static const float ROTATION_MAX_DEGREE;
 	static const float MAX_XSPEED;
 	static const float MAX_YSPEED;
+
+	// Landsite
+	static const float LANDSITE_MIN_YPOS;
+	static const float LANDSITE_WIDTH;
 };

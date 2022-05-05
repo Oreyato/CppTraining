@@ -19,15 +19,11 @@ void update();
 void draw();
 void drawUi();
 
-// Screen size
-int const SCREEN_WIDTH = 960;
-int const SCREEN_HEIGHT = 540;
-
 // State
 int state = 0;
 //^ Global init ==================================================
 //v Game specific init ===========================================
-Lander lander { "../assets/images/lander.png", SCREEN_WIDTH / 2, 25, true};
+Lander lander { "../assets/images/lander.png", Consts::SCREEN_WIDTH / 2, 25, true};
 LandSite landSite { "../assets/images/land_site.png", 400, 400 };
 LanderInterface landerInterface{ 50, 50, lander};
 
@@ -58,7 +54,7 @@ void load()
 {
     // Create the window 
     string windowName = "Lander";
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, windowName.c_str());
+    InitWindow(Consts::SCREEN_WIDTH, Consts::SCREEN_HEIGHT, windowName.c_str());
     SetWindowPosition(0, 10);
     SetTargetFPS(60);
 
@@ -90,7 +86,8 @@ void update()
     // A world of justice... Adding delta time
     float dt = GetFrameTime();
 
-    if (state == 0) { // Main game loop
+    // Main game loop
+    if (state == 0) { 
         lander.update(dt);
         landerInterface.update(dt);
 
@@ -126,12 +123,14 @@ void update()
             }
 
             resetGame();
+            landSite.changeSite();
         }
     }
     else if (state == 2) { // If the player lose
         if (IsKeyPressed(KEY_R)) {
             streak = 0;
             resetGame();
+            landSite.changeSite();
         }
     }
 }

@@ -6,5 +6,8 @@ class LandSite :
 {
 public:
 	LandSite(std::string texturePathP, float xPosP, float yPosP);
+
+	void changeSite();
+
 };
 
