@@ -17,6 +17,7 @@ using namespace std;
 void load();
 void unload();
 void update();
+bool outOfScreen()
 void draw();
 void drawUi();
 
@@ -115,6 +116,11 @@ void update()
                 landerInterface.showEndText(state);
             }
         }
+        // Check if the lander goes out of screen
+        else if (outOfScreen()) {
+
+        }
+
     }
     else if (state == 1) { // If the player win
         if (IsKeyPressed(KEY_R)) {
@@ -131,9 +137,13 @@ void update()
         if (IsKeyPressed(KEY_R)) {
             streak = 0;
             resetGame();
-            landSite.changeSite();
         }
     }
+}
+
+bool outOfScreen() {
+
+    return false;
 }
 
 // Draw game
@@ -164,8 +174,10 @@ void resetGame() {
     // Reset lander interface end message
     landerInterface.hideEndText();
 
-    // Change landsite
+    // Change landsite and mountains accordingly
     landSite.changeSite();
+    mountains.eraseLines();
+    mountains.drawLines(landSite.getXPos(), landSite.getYPos());
 
     state = 0;
 }

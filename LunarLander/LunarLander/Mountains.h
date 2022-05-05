@@ -9,6 +9,7 @@ public:
 	Mountains(float siteXposP, float siteYposP);
 	
 	void draw();
+	void eraseLines();
 	void addLine(Vector2 startP, Vector2 endP);
 	void drawLines(float siteXposP, float siteYposP);
 

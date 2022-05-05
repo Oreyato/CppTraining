@@ -14,6 +14,11 @@ void Mountains::draw()
 	}
 }
 
+void Mountains::eraseLines()
+{
+	lines.clear();
+}
+
 void Mountains::addLine(Vector2 startP, Vector2 endP)
 {
 	Line line{ startP, endP };
