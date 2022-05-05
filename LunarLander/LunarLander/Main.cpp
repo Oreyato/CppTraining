@@ -17,7 +17,7 @@ using namespace std;
 void load();
 void unload();
 void update();
-bool outOfScreen()
+bool outOfScreen();
 void draw();
 void drawUi();
 
@@ -118,7 +118,8 @@ void update()
         }
         // Check if the lander goes out of screen
         else if (outOfScreen()) {
-
+            state = 2;
+            landerInterface.showEndText(state);
         }
 
     }
@@ -142,8 +143,17 @@ void update()
 }
 
 bool outOfScreen() {
+    float landerDim = 25.f / 2.f;
 
-    return false;
+    if (((lander.getXPos() + landerDim < 0) ||
+        (lander.getXPos() - landerDim > Consts::SCREEN_WIDTH) || 
+        (lander.getYPos( ) + landerDim < 0) || 
+        (lander.getYPos() - landerDim > Consts::SCREEN_HEIGHT))) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 // Draw game

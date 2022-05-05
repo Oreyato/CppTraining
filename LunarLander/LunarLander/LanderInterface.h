@@ -11,6 +11,8 @@ public:
 	void update(float dtP);
 	void draw();
 
+	std::string xPosFormat(float xPosP);
+	std::string yPosFormat(float yPosP);
 	std::string xSpeedFormat(float xSpeedP);
 	std::string ySpeedFormat(float ySpeedP);
 	std::string rotationFormat(int angleP);
@@ -29,6 +31,9 @@ private:
 
 	int xPos{ 0 };
 	int yPos{ 0 };
+
+	std::string xPosLabel{ "X pos: 0" };
+	std::string yPosLabel{ "Y pos: 0" };
 
 	std::string xSpeedLabel{ "X speed: 0" };
 	std::string ySpeedLabel{ "Y speed: 0" };

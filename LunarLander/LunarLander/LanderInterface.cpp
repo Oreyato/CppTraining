@@ -16,6 +16,9 @@ void LanderInterface::update(float dtP)
 	rotationOk = lander.isRotationOk();
 
 	// Modify labels
+	xPosLabel = xPosFormat(lander.getXPos());
+	yPosLabel = yPosFormat(lander.getYPos());
+
 	xSpeedLabel = xSpeedFormat(lander.getXSpeed());
 	ySpeedLabel = ySpeedFormat(lander.getYSpeed());
 	rotationLabel = rotationFormat(lander.getRotation360());
@@ -34,13 +37,30 @@ void LanderInterface::draw()
 	Color ySpeedColor = ySpeedOk ? WHITE : RED;
 	Color rotationColor = rotationOk ? WHITE : RED;
 
-	DrawText(xSpeedLabel.c_str(), xPos, yPos, 10, xSpeedColor);
-	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING, 10, ySpeedColor);
-	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, rotationColor);
+	DrawText(xPosLabel.c_str(), xPos, yPos, 10, WHITE);
+	DrawText(yPosLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 1, 10, WHITE);
+
+	DrawText(xSpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, xSpeedColor);
+	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 3, 10, ySpeedColor);
+	DrawText(rotationLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 4, 10, rotationColor);
 
 	if (isEndTextVisible) {
 		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, WHITE);
 	}
+}
+
+std::string LanderInterface::xPosFormat(float xPosP)
+{
+	std::string xPosValue = std::to_string(xPosP);
+
+	return xPosValue;
+}
+
+std::string LanderInterface::yPosFormat(float yPosP)
+{
+	std::string yPosValue = std::to_string(yPosP);
+
+	return yPosValue;
 }
 
 std::string LanderInterface::xSpeedFormat(float xSpeedP)
