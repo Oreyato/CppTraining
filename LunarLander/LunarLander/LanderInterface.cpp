@@ -37,8 +37,8 @@ void LanderInterface::draw()
 	Color ySpeedColor = ySpeedOk ? WHITE : RED;
 	Color rotationColor = rotationOk ? WHITE : RED;
 
-	DrawText(xPosLabel.c_str(), xPos, yPos, 10, WHITE);
-	DrawText(yPosLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 1, 10, WHITE);
+	// DrawText(xPosLabel.c_str(), xPos, yPos, 10, WHITE);
+	// DrawText(yPosLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 1, 10, WHITE);
 
 	DrawText(xSpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 2, 10, xSpeedColor);
 	DrawText(ySpeedLabel.c_str(), xPos, yPos + Consts::VERTICAL_SPACING * 3, 10, ySpeedColor);
@@ -46,6 +46,10 @@ void LanderInterface::draw()
 
 	if (isEndTextVisible) {
 		DrawText(endText.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT, 20, WHITE);
+		DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, 15, BLACK);
+		DrawText(streakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 4, 15, WHITE);
+		DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, 15, BLACK);
+		DrawText(bestStreakLabel.c_str(), xPos + Consts::XPOS_END_TEXT, yPos + Consts::YPOS_END_TEXT + Consts::VERTICAL_SPACING * 5, 15, WHITE);
 	}
 }
 
@@ -98,6 +102,22 @@ std::string LanderInterface::rotationFormat(int angleP)
 	std::string rotationText = "Angle: " + std::to_string(angleP);
 	
 	return rotationText;
+}
+
+std::string LanderInterface::streakFormat(float streakP)
+{
+	std::string streakText = "Current streak: " + std::to_string(streakP).substr(0,1);
+	streakLabel = streakText;
+
+	return streakText;
+}
+
+std::string LanderInterface::bestStreakFormat(float bestStreakP)
+{
+	std::string bestStreakText = "Best streak: " + std::to_string(bestStreakP).substr(0, 1);
+	bestStreakLabel = bestStreakText;
+
+	return bestStreakText;
 }
 
 void LanderInterface::showEndText(int state)

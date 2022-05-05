@@ -7,7 +7,7 @@ const float Consts::SCREEN_HEIGHT{ 540.0f };
 // UI
 const int Consts::VERTICAL_SPACING{ 25 };
 const int Consts::XPOS_END_TEXT{ 250 };
-const int Consts::YPOS_END_TEXT{ 150 };
+const int Consts::YPOS_END_TEXT{ 50 };
 
 // Lander
 const float Consts::GRAVITY{ 100.0f };

@@ -108,35 +108,41 @@ void update()
 
             // If so, is the lander entirely on the landsite? && is it a good landing?
             if (rectLander.x >= rectLandSite.x && maxXPosLander <= maxXPosLandSite && lander.goodLanding()) {
+                streak++;
+
+                if (streak > bestStreak) {
+                    bestStreak = streak;
+                }
+
                 state = 1;
-                landerInterface.showEndText(state);
             }
             else {
                 state = 2;
-                landerInterface.showEndText(state);
             }
         }
         // Check if the lander goes out of screen
         else if (outOfScreen()) {
             state = 2;
-            landerInterface.showEndText(state);
         }
 
     }
     else if (state == 1) { // If the player win
+        landerInterface.streakFormat(streak);
+        landerInterface.bestStreakFormat(bestStreak);
+
+        landerInterface.showEndText(state);
+        
         if (IsKeyPressed(KEY_R)) {
-            streak++;
-
-            if (streak > bestStreak) {
-                bestStreak = streak;
-            }
-
             resetGame();
         }
     }
     else if (state == 2) { // If the player lose
+        landerInterface.showEndText(state);
+        
         if (IsKeyPressed(KEY_R)) {
             streak = 0;
+            landerInterface.streakFormat(streak);
+
             resetGame();
         }
     }
